@@ -36,6 +36,6 @@ class SimpleLinearRegression:
     
     def _predict(self, x):
         return self.a_ * x + self.b_
-    
+        
     def __repr__(self) -> str:
         return "SimpleLinearRegression"
