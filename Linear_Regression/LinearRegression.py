@@ -1,4 +1,5 @@
 import numpy as  np
+from metrics import r2_score
 
 class SimpleLinearRegression:
     def __init__(self):
@@ -36,6 +37,10 @@ class SimpleLinearRegression:
     
     def _predict(self, x):
         return self.a_ * x + self.b_
-        
+    
+    def score(self, x_test, y_test):
+        y_pred = self.predcit(x_test)
+        return r2_score(y_test, y_pred)
+    
     def __repr__(self) -> str:
         return "SimpleLinearRegression"
