@@ -1,4 +1,5 @@
 from tqdm import tqdm
+from typing import List
 
 def loadDataForMniST(
         dir_path:str=None
@@ -18,3 +19,15 @@ def loadDataForMniST(
         labelArr.append(int(curLine[0]))
     
     return dataArr, labelArr
+
+
+
+def loadDataForHMM(
+                    dir_path: str
+                    ) -> List[str]:
+    artical = []
+    fr = open(dir_path, encoding="utf-8")
+    for cur_line in fr.readlines():
+        cur_line = cur_line.strip()
+        artical.append(cur_line)
+    return artical
