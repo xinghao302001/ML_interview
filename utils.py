@@ -22,7 +22,7 @@ def loadDataForMniST(
 
 
 
-def loadDataForHMM(
+def loadDataForText(
                     dir_path: str
                     ) -> List[str]:
     artical = []
