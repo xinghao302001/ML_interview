@@ -84,9 +84,7 @@ if __name__ == "__main__":
 
     model = KNN(trainDataList, trainLabelList, 25)
     accur = model.test(testDataList, testLabelList)
-    #打印正确率
     print('accur is:%d'%(accur * 100), '%')
 
     end = time.time()
-    #显示花费时间
     print('time span:', end - start)
