@@ -37,15 +37,23 @@ class KMeans:
         return dist
 
     def _cacul_clusterCenter(self, cluster: List, dataArr:np.ndarray) -> np.ndarray:
+        '''
+         caculate the position of center for each cluster
+         : cluster: all data points that the current cluster includes
+         : return: the new center
+        '''
         center = np.zeros(dataArr.shape[1])
         for i in range(dataArr.shape[1]):
             for n in cluster:
-                center[i] += dataArr[n][i]
-        center = center / dataArr.shape[0]
+                center[i] += dataArr[n][i]   # caculate the sum of the i-th features in current cluster
+        center = center / dataArr.shape[0]   # # caculate the mean for each feature
 
         return center
 
     def _Adjusted_Rand_Index(self, cluster_dict: Dict, labels:List[int], k:int) -> Union[np.ndarray, float]:
+        '''
+          :: reference: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_rand_score.htmld
+        '''
         group_array = np.zeros((k, k))
         labelSet = list(set(labels))
         y_dict = {i:[] for i in range(k)}
@@ -89,10 +97,12 @@ class KMeans:
         centers = [dataArr[ci] for ci in centers_idx]
         scores = []
 
+        #### !!! 
         for i in range(iter_steps):
             cluster_dict = {i:[] for i in range(k)}
             print('{}/{}'.format(i+1, iters))
             # caculate distance
+            ### cacluate the distance between every center of cluster and every data instance
             for j in range(dataArr.shape[0]):
                 dists = []
                 for ci in range(k):
