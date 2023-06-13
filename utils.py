@@ -1,5 +1,6 @@
 from tqdm import tqdm
-from typing import List
+from typing import List, Union
+import numpy as np
 
 def loadDataForMniST(
         dir_path:str=None
@@ -31,3 +32,22 @@ def loadDataForText(
         cur_line = cur_line.strip()
         artical.append(cur_line)
     return artical
+
+
+def loadDataForIris(
+                dir_path: str
+                ) -> Union[List, np.ndarray]:
+    
+    feature_list = []  
+    label_list = []  
+    fr = open(dir_path)
+    for line in fr.readlines():  
+        cur = line.split(',')
+        label = cur[-1]
+        X = [float(x) for x in cur[:-1]]  #用列表来表示一条特征数据
+        feature_list.append(X)
+        label_list.append(label)
+    FeatureArray = np.array(feature_list)  
+    print('Data shape:', FeatureArray.shape)
+    print('Length of labels:', len(label_list))
+    return FeatureArray, label_list
