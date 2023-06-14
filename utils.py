@@ -1,6 +1,7 @@
 from tqdm import tqdm
 from typing import List, Union
 import numpy as np
+import pandas as pd
 
 def loadDataForMniST(
         dir_path:str=None
@@ -51,3 +52,12 @@ def loadDataForIris(
     print('Data shape:', FeatureArray.shape)
     print('Length of labels:', len(label_list))
     return FeatureArray, label_list
+
+def loadDataForCars(
+        dir_path: str
+    ) -> np.ndarray:
+    df = pd.read_csv(dir_path)
+    df.drop("Sports", axis=1, inplace=True)
+    Xarray = np.asarray(df.values).T
+
+    return df, Xarray
