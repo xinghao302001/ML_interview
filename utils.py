@@ -2,7 +2,8 @@ from tqdm import tqdm
 from typing import List, Union
 import numpy as np
 import pandas as pd
-
+from nltk.corpus import stopwords
+import string
 def loadDataForMniST(
         dir_path:str=None
         ):
@@ -61,3 +62,25 @@ def loadDataForCars(
     Xarray = np.asarray(df.values).T
 
     return df, Xarray
+
+
+
+def loadDataForBBC(
+        dir_path: str
+    ) -> List:
+
+    df = pd.read_csv(dir_path)
+    ori_topics = df['category'].unique().tolist() ## delete duplicate
+    # n = df.shape[0]
+
+    alltexts = []
+    words = []
+    for text in df['text'].values:
+        text = text.translate(str.maketrans('', '', string.punctuation))
+        text = [word for word in text.split() if word not in stopwords.words('english')]
+        text = [word for word in text if len(word) > 3]
+        alltexts.append(text)
+        words.extend(set(text))
+    words = list(set(words))
+
+    return ori_topics, alltexts, words
